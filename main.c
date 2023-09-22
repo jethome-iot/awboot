@@ -32,12 +32,12 @@ typedef struct {
 	unsigned int end;
 } linux_zimage_header_t;
 
-static int boot_image_setup(unsigned char *addr, unsigned int *entry)
+static int boot_image_setup(void *addr, void **entry)
 {
 	linux_zimage_header_t *zimage_header = (linux_zimage_header_t *)addr;
 
 	if (zimage_header->magic == LINUX_ZIMAGE_MAGIC) {
-		*entry = ((unsigned int)addr + zimage_header->start);
+		*entry = (addr + zimage_header->start);
 		return 0;
 	}
 
@@ -198,7 +198,7 @@ int main(void)
 
 	sunxi_dram_init();
 
-	unsigned int entry_point = 0;
+	void *entry_point = 0;
 	void (*kernel_entry)(int zero, int arch, unsigned int params);
 
 #ifdef CONFIG_ENABLE_CPU_FREQ_DUMP
