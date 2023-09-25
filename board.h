@@ -6,7 +6,9 @@
 #include "sunxi_usart.h"
 #include "sunxi_sdhci.h"
 
+#ifndef UASRT_DBG
 #define USART_DBG usart5_dbg
+#endif
 
 #define CONFIG_BOOT_SPINAND
 #define CONFIG_BOOT_SDCARD
